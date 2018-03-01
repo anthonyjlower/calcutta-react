@@ -60,8 +60,23 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          console.log(parsedData)
           this.setState({pools: parsedData.data})
+        }
+      })
+  }
+  createInvite = (username) => {
+    console.log("User name to invite -> ", username)
+    console.log('Pool to invite the to -> ', this.state.selectedPool.pool.id)
+    request
+      .post('http://localhost:9292/pools/invite')
+      .type('form')
+      .send({pool_id: this.state.selectedPool.pool.id})
+      .send({username: username})
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(res.text)
         }
       })
   }
@@ -74,7 +89,7 @@ class App extends Component {
 
         {this.state.loggedIn ?
           <Home selectedPool={this.state.selectedPool} pools={this.state.pools} bids={this.state.bids} 
-          user={this.state.user} viewPool={this.viewPool} createPool={this.createPool}
+          user={this.state.user} viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
           />
           : <Login />}
 

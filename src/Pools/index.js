@@ -16,7 +16,7 @@ export default class Pools extends Component {
 		this.props.viewPool(e.currentTarget.id)
 	}
 	createModal = () => {
-		document.getElementById('modal').style.display = 'block'
+		document.getElementById('pool-modal').style.display = 'block'
 	}
 	handleChange = (e) => {
 		this.setState({newPool: e.currentTarget.value})
@@ -25,7 +25,7 @@ export default class Pools extends Component {
 		e.preventDefault()
 		this.props.createPool(this.state.newPool)
 		this.setState({newPool: ""});
-		document.getElementById('modal').style.display = 'none'
+		document.getElementById('pool-modal').style.display = 'none'
 	}
 	
 	render(){
@@ -59,14 +59,14 @@ export default class Pools extends Component {
 					{poolsList}
 				</section>
 
-				<div id="modal">
-					<div id="modal-content">
+				<div id="pool-modal">
+					<div id="pool-modal-content">
 						<form>
 							Pool Name: <input type="text" name="name" value={this.state.newPool} placeholder="Pool Name" onChange={this.handleChange}/>
 							<button onClick={this.submitChange}>submit</button>
 						</form>
 					</div>
-			</div>
+				</div>
 
 			</div>
 		)

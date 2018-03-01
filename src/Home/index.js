@@ -23,7 +23,7 @@ export default class Home extends Component {
 						createPool={this.props.createPool}
 					/>
 				</div>:
-					<Auction selectedPool={this.props.selectedPool}/>
+					<Auction selectedPool={this.props.selectedPool} createInvite={this.props.createInvite}/>
 				}
 			</div>
 		)
