@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './style.css';
-import Invites from '../Invites';
 import Pools from '../Pools';
 import Auction from '../Auction'
 
@@ -10,23 +9,19 @@ export default class Home extends Component {
 		super();
 
 		this.state = {
-			selectedPool: ""
-		}
 
+		}
 	}
 
 
 	render(){
 		return(
-			<div className="home">
-				<p>Home</p>
-
-				{this.state.selectedPool === "" ?
+			<div id="home-body">
+				{this.props.selectedPool === null ?
 				<div>
-					<Pools pools={this.props.pools}/>
-					<Invites invites={this.props.invites}/> 
+					<Pools username={this.props.username} bids={this.props.bids} pools={this.props.pools} viewPool={this.props.viewPool}/>
 				</div>:
-					<Auction />
+					<Auction selectedPool={this.props.selectedPool}/>
 				}
 			</div>
 		)

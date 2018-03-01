@@ -1,0 +1,64 @@
+.head{
+	height: 10vh;
+	display: flex;
+	justify-content: space-around;
+	background-color: rgb(54, 38, 167);
+	color: rgb(251,251,255);
+	line-height: 10vh;
+	text-align: center;
+}
+.head h1{
+	margin: 0;
+}
+#add-new-btn{
+	height: 10vh;
+	width: 20%;
+}
+#add-new-btn:hover{
+	background-color: rgb(101,126,212);
+}
+#summary-holder{
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid rgb(13,1,6);
+}
+#summary{
+	display: flex;
+	justify-content: space-around;
+}
+.summary-box{
+	text-align: center;
+	width: 25%;
+	border: 10px solid;
+	border-color: rgb(255,51,31);
+	margin-bottom: 5vh;
+}
+#pool-holder{
+	display: flex;
+	justify-content: space-around;
+	/*flex-wrap: wrap;*/
+}
+.pool-card{
+	width: 25%;
+	border: 10px solid;
+	border-color: rgb(255,51,31);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

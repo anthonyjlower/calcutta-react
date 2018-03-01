@@ -9,13 +9,16 @@ class App extends Component {
     super();
 
     this.state = {
-      username: "AJL",
+      username: "",
       loggedIn: true,
-      invites: [],
-      pools: []
+      pools: {
+        pools: [],
+        number_of_pools: ''
+      },
+      bids: {},
+      selectedPool: null
     }
   }
-
   componentDidMount(){
     request
       .get('http://localhost:9292/users/')
@@ -25,10 +28,26 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          this.setState({invites: [...parsedData.invites.invites]})
-          this.setState({pools: [...parsedData.pools.pools]})
+          this.setState({
+            username: parsedData.data.user.name,
+            pools: parsedData.data.pools,
+            bids: parsedData.data.bids
+          })
         }
       })  
+  }
+
+  viewPool = (id) =>{
+    request
+      .get('http://localhost:9292/pools/' + id)
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          const parsedData = JSON.parse(res.text)
+          this.setState({selectedPool: parsedData.data})
+        }
+      })
   }
 
   render() {
@@ -36,7 +55,9 @@ class App extends Component {
       <div className="App">
         
 
-        {this.state.loggedIn ? <Home invites={this.state.invites} pools={this.state.pools}/> : <Login />}
+        {this.state.loggedIn ?
+          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} bids={this.state.bids} username={this.state.username} viewPool={this.viewPool}/>
+          : <Login />}
 
 
       </div>
