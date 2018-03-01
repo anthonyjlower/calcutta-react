@@ -19,7 +19,9 @@ export default class Home extends Component {
 			<div id="home-body">
 				{this.props.selectedPool === null ?
 				<div>
-					<Pools username={this.props.username} bids={this.props.bids} pools={this.props.pools} viewPool={this.props.viewPool}/>
+					<Pools user={this.props.user} bids={this.props.bids} pools={this.props.pools} viewPool={this.props.viewPool}
+						createPool={this.props.createPool}
+					/>
 				</div>:
 					<Auction selectedPool={this.props.selectedPool}/>
 				}

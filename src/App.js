@@ -9,7 +9,7 @@ class App extends Component {
     super();
 
     this.state = {
-      username: "",
+      user: {},
       loggedIn: true,
       pools: {
         pools: [],
@@ -29,7 +29,7 @@ class App extends Component {
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
-            username: parsedData.data.user.name,
+            user: parsedData.data.user,
             pools: parsedData.data.pools,
             bids: parsedData.data.bids
           })
@@ -49,6 +49,23 @@ class App extends Component {
         }
       })
   }
+  createPool = (poolName) => {
+    request
+      .post('http://localhost:9292/pools')
+      .type('form')
+      .send({name: poolName})
+      .send({user_id: this.state.user.id})
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          const parsedData = JSON.parse(res.text)
+          console.log(parsedData)
+          this.setState({pools: parsedData.data})
+        }
+      })
+  }
+  
 
   render() {
     return (
@@ -56,7 +73,9 @@ class App extends Component {
         
 
         {this.state.loggedIn ?
-          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} bids={this.state.bids} username={this.state.username} viewPool={this.viewPool}/>
+          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} bids={this.state.bids} 
+          user={this.state.user} viewPool={this.viewPool} createPool={this.createPool}
+          />
           : <Login />}
 
 

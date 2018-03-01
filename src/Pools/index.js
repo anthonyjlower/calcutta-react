@@ -3,11 +3,30 @@ import './style.css'
 
 
 export default class Pools extends Component {
+	constructor(){
+		super()
+
+		this.state = {
+			newPool: ""
+		}
+	}
+
 	
 	handlePool = (e) => {
 		this.props.viewPool(e.currentTarget.id)
 	}
-
+	createModal = () => {
+		document.getElementById('modal').style.display = 'block'
+	}
+	handleChange = (e) => {
+		this.setState({newPool: e.currentTarget.value})
+	}
+	submitChange = (e) => {
+		e.preventDefault()
+		this.props.createPool(this.state.newPool)
+		this.setState({newPool: ""});
+		document.getElementById('modal').style.display = 'none'
+	}
 	
 	render(){
 		const poolsList = this.props.pools.pools.map((pool, i) => {
@@ -18,10 +37,10 @@ export default class Pools extends Component {
 			<div id='pool-body'>
 				<header className='head'>
 					<h1>Calcutta Manager</h1>
-					<div id="add-new-btn" onClick={this.props.createPool}>+ New Pool</div>
+					<div id="add-new-btn" onClick={this.createModal}>+ New Pool</div>
 				</header>
 				<section id='summary-holder'>
-					<h3>Hello {this.props.username}</h3>
+					<h3>Hello {this.props.user.username}</h3>
 					<div id='summary'>
 						<div className="summary-box">
 							<p>Pools Entered In:</p>
@@ -39,6 +58,16 @@ export default class Pools extends Component {
 				<section id='pool-holder'>
 					{poolsList}
 				</section>
+
+				<div id="modal">
+					<div id="modal-content">
+						<form>
+							Pool Name: <input type="text" name="name" value={this.state.newPool} placeholder="Pool Name" onChange={this.handleChange}/>
+							<button onClick={this.submitChange}>submit</button>
+						</form>
+					</div>
+			</div>
+
 			</div>
 		)
 	}
