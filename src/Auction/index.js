@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './style.css'
+import './style.css';
+import Live from '../Live';
 
 
 export default class Auction extends Component {
@@ -7,10 +8,7 @@ export default class Auction extends Component {
 		super(props)
 
 		this.state = {
-			inviteName: "",
-			teams: [...this.props.selectedPool.teams],
-			teamUp: {},
-			winningBid: {}
+			
 		}
 	}
 
@@ -27,11 +25,7 @@ export default class Auction extends Component {
 		document.getElementById('invite-modal').style.display = 'none'	
 	}
 	
-	render(){
-
-		const teamList = this.props.selectedPool.teams.map((team, i) => {
-			return <li key={i}>{team.seed} {team.name}</li> 
-		})
+	render(){		
 		const userList = this.props.selectedPool.users.map((user, i) => {
 			return <li key={i}>{user.name}</li>
 		})
@@ -42,17 +36,10 @@ export default class Auction extends Component {
 					<h1>{this.props.selectedPool.pool.name}</h1>
 					<div id="add-new-btn" onClick={this.createModal}>+ New Invite</div>
 				</header>
-				
-				<div id='team-list'>
-					<ul>
-						{teamList}
-					</ul>
-				</div>
-				<div id='user-list'>
-					<ul>
-						{userList}
-					</ul>
-				</div>
+
+				<Live selectedPool={this.props.selectedPool} createBid={this.props.createBid}/>
+
+				{userList}
 
 				<div id="invite-modal">
 					<div id="invite-modal-content">

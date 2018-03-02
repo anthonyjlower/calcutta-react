@@ -65,8 +65,6 @@ class App extends Component {
       })
   }
   createInvite = (username) => {
-    console.log("User name to invite -> ", username)
-    console.log('Pool to invite the to -> ', this.state.selectedPool.pool.id)
     request
       .post('http://localhost:9292/pools/invite')
       .type('form')
@@ -76,9 +74,30 @@ class App extends Component {
         if (err) {
           console.log(err)
         } else {
-          console.log(res.text)
+          const parsedData = JSON.parse(res.text)
+          this.setState({selectedPool: parsedData.data})
         }
       })
+  }
+  createBid = (bid) => {
+    console.log(bid)
+    request
+      .post('http://localhost:9292/pools/bid')
+      .type('form')
+      .send({pool_id: this.state.selectedPool.pool.id})
+      .send({team_id: bid.team_id})
+      .send({username: bid.username})
+      .send({amount: bid.amount})
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          const parsedData = JSON.parse(res.text)
+          console.log(parsedData)
+          this.setState({selectedPool: parsedData.data})
+        }
+      })
+
   }
   
 
@@ -90,6 +109,7 @@ class App extends Component {
         {this.state.loggedIn ?
           <Home selectedPool={this.state.selectedPool} pools={this.state.pools} bids={this.state.bids} 
           user={this.state.user} viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
+          createBid={this.createBid}
           />
           : <Login />}
 
