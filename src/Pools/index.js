@@ -29,8 +29,15 @@ export default class Pools extends Component {
 	}
 	
 	render(){
-		const poolsList = this.props.pools.pools.map((pool, i) => {
-			return <div className='pool-card' key={i} id={pool.id} onClick={this.handlePool}>{pool.name}</div>
+		console.log('Pool.js props => ', this.props)
+		const poolsList = this.props.pools.map((pool, i) => {
+			return (
+				<div className='pool-card' key={i} id={pool.id} onClick={this.handlePool}>
+					<h3>{pool.name}</h3>
+					<p>Bet Size {pool.sum_of_bids}</p>
+					<p>Money Made</p>
+				</div>
+			)
 		})
 
 		return(
@@ -40,18 +47,18 @@ export default class Pools extends Component {
 					<div id="add-new-btn" onClick={this.createModal}>+ New Pool</div>
 				</header>
 				<section id='summary-holder'>
-					<h3>Hello {this.props.user.username}</h3>
+					<h2>Hello {this.props.username}</h2>
 					<div id='summary'>
 						<div className="summary-box">
-							<p>Pools Entered In:</p>
-							<p>{this.props.pools.number_of_pools}</p>
+							<h3>Pools Entered In:</h3>
+							<p>{this.props.numberOfPools}</p>
 						</div>
 						<div className="summary-box">
-							<p>Total Amount Bid</p>
-							<p>{this.props.bids.sum_of_bids}</p>
+							<h3>Total Amount Bid</h3>
+							<p>{this.props.totalBet}</p>
 						</div>
 						<div className="summary-box">
-							<p>Total Amount Won</p>
+							<h3>Total Amount Won</h3>
 						</div>
 					</div>
 				</section>

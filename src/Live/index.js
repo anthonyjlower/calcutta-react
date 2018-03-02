@@ -19,8 +19,8 @@ export default class Live extends Component{
 				tourney_wins: 0
 			},
 			winningBid: {
-				name: "test",
-				value: 30
+				name: "",
+				value: ""
 			}
 		}
 	}
@@ -44,16 +44,29 @@ export default class Live extends Component{
 	render(){
 		console.log(this.state.teams)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
-			return <li key={i}>{team.seed} {team.name}</li> 
+			return(
+				<div className="team-card" key={i}>
+					<p>{team.seed} {team.name} | {team.season_wins}-{team.season_losses} | {team.tourney_wins}</p> 
+					<p> Username | Bid Amount | Winnings</p>
+				</div> 
+			)
 		})
 
 		return(
 			<div>
-				<div id='team-list'>
-					<ul>
-						{teamList}
-					</ul>
+
+				<div id="pool-info">
+					<div>
+						Pot Value
+					</div>
+
+					<div>
+						Teams remaining
+					</div>
+
+					<button onClick={this.drawTeam}>Draw a Team</button>
 				</div>
+
 
 				<form>
 					<input type='text' value={this.state.teamUp.name} placeholder="Team Name"/>
@@ -62,8 +75,11 @@ export default class Live extends Component{
 					<input type='hidden' value={this.state.teamUp.id}/>
 					<button onClick={this.submitBid}>Finalize Bid</button>
 				</form>
+				
 
-				<button onClick={this.drawTeam}>Draw a Team</button>
+				<div id='team-list'>
+					{teamList}
+				</div>
 
 			</div>
 		)

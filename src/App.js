@@ -9,14 +9,13 @@ class App extends Component {
     super();
 
     this.state = {
-      user: {},
       loggedIn: true,
-      pools: {
-        pools: [],
-        number_of_pools: ''
-      },
-      bids: {},
-      selectedPool: null
+      selectedPool: null,
+      username: "",
+      userId: "",
+      totalBet: "",
+      numberOfPools: "",
+      pools: []
     }
   }
   componentDidMount(){
@@ -29,9 +28,11 @@ class App extends Component {
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
-            user: parsedData.data.user,
-            pools: parsedData.data.pools,
-            bids: parsedData.data.bids
+            username: parsedData.data.user.name,
+            userId: parsedData.data.user.id,
+            totalBet: parsedData.data.total_bet,
+            numberOfPools: parsedData.data.number_of_pools,
+            pools: [...parsedData.data.pools]
           })
         }
       })  
@@ -94,7 +95,7 @@ class App extends Component {
         } else {
           const parsedData = JSON.parse(res.text)
           console.log(parsedData)
-          this.setState({selectedPool: parsedData.data})
+          this.setState({selectedPool: parsedData.data  })
         }
       })
 
@@ -104,16 +105,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
 
         {this.state.loggedIn ?
-          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} bids={this.state.bids} 
-          user={this.state.user} viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
+          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username}
+          totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools}
+          viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
           createBid={this.createBid}
           />
           : <Login />}
-
-
+        
+          
       </div>
     );
   }

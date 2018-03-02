@@ -2,8 +2,8 @@
 	height: 10vh;
 	display: flex;
 	justify-content: space-around;
-	background-color: rgb(54, 38, 167);
-	color: rgb(251,251,255);
+	background-color: rgb(29, 53, 87);
+	color: rgb(241, 250, 238);
 	line-height: 10vh;
 	text-align: center;
 }
@@ -15,12 +15,12 @@
 	width: 20%;
 }
 #add-new-btn:hover{
-	background-color: rgb(101,126,212);
+	background-color: rgb(69, 123, 157);
 }
 #summary-holder{
 	display: flex;
 	flex-direction: column;
-	border-bottom: 1px solid rgb(13,1,6);
+	border-bottom: 1px solid rgb(230, 57, 70);
 }
 #summary{
 	display: flex;
@@ -30,7 +30,7 @@
 	text-align: center;
 	width: 25%;
 	border: 10px solid;
-	border-color: rgb(255,51,31);
+	border-color: rgb(168, 218, 220);
 	margin-bottom: 5vh;
 }
 #pool-holder{
@@ -41,7 +41,14 @@
 .pool-card{
 	width: 25%;
 	border: 10px solid;
-	border-color: rgb(255,51,31);
+	border-color: rgb(168, 218, 220);
+}
+.pool-card h3{
+	text-align: center;
+}
+.pool-card h3:hover{
+	text-decoration: underline;
+	cursor: pointer;
 }
 #pool-modal {
   background-color: rgba(100, 100, 100, 0.5);

@@ -27,7 +27,7 @@ export default class Auction extends Component {
 	
 	render(){		
 		const userList = this.props.selectedPool.users.map((user, i) => {
-			return <li key={i}>{user.name}</li>
+			return <div key={i}>{user.name}</div>
 		})
 		
 		return(

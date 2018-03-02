@@ -19,7 +19,7 @@ export default class Home extends Component {
 			<div id="home-body">
 				{this.props.selectedPool === null ?
 				<div>
-					<Pools user={this.props.user} bids={this.props.bids} pools={this.props.pools} viewPool={this.props.viewPool}
+					<Pools username={this.props.username} pools={this.props.pools} totalBet={this.props.totalBet} numberOfPools={this.props.numberOfPools} viewPool={this.props.viewPool}
 						createPool={this.props.createPool}
 					/>
 				</div>:
