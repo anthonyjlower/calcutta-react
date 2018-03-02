@@ -8,7 +8,6 @@ export default class Live extends Component{
 
 		this.state = {
 			inviteName: "",
-			teams: [...this.props.selectedPool.teams],
 			teamUp: {
 				id: "",
 				name: "",
@@ -42,12 +41,11 @@ export default class Live extends Component{
 
 
 	render(){
-		console.log(this.state.teams)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
 					<p>{team.seed} {team.name} | {team.season_wins}-{team.season_losses} | {team.tourney_wins}</p> 
-					<p> Username | Bid Amount | Winnings</p>
+					<p> {team.bid.username} | {team.bid.amount} | Winnings</p>
 				</div> 
 			)
 		})

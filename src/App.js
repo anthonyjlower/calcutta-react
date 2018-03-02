@@ -46,7 +46,8 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          this.setState({selectedPool: parsedData.data})
+          // console.log('this.state.selectedPool => ', parsedData.data)
+          this.setState({selectedPool: parsedData.data})   
         }
       })
   }
@@ -95,7 +96,7 @@ class App extends Component {
         } else {
           const parsedData = JSON.parse(res.text)
           console.log(parsedData)
-          this.setState({selectedPool: parsedData.data  })
+          this.setState({selectedPool: parsedData.data})
         }
       })
 

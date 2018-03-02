@@ -29,7 +29,6 @@ export default class Pools extends Component {
 	}
 	
 	render(){
-		console.log('Pool.js props => ', this.props)
 		const poolsList = this.props.pools.map((pool, i) => {
 			return (
 				<div className='pool-card' key={i} id={pool.id} onClick={this.handlePool}>
