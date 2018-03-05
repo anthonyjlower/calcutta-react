@@ -22,7 +22,7 @@ export default class Pools extends Component {
 		e.preventDefault()
 		this.props.createPool(this.state.newPool)
 		this.setState({newPool: ""});
-		document.getElementById('pool-modal').style.display = 'none'
+		document.getElementById('modal').style.display = 'none'
 	}
 	
 	render(){

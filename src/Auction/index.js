@@ -8,7 +8,7 @@ export default class Auction extends Component {
 		super(props)
 
 		this.state = {
-			
+			inviteName: ""
 		}
 	}
 

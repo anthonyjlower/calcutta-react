@@ -19,6 +19,7 @@ class App extends Component {
     }
   }
   componentDidMount(){
+    // Get all of the data for the logged in user
     request
       .get('http://localhost:9292/users/')
       // .withCredentials() will use when tracking sessions
@@ -39,6 +40,7 @@ class App extends Component {
   }
 
   viewPool = (id) =>{
+    // View all of the info for the selected pool
     request
       .get('http://localhost:9292/pools/' + id)
       .end((err, res) => {
@@ -46,7 +48,7 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          // console.log('this.state.selectedPool => ', parsedData.data)
+          console.log(parsedData)
           this.setState({selectedPool: parsedData.data})   
         }
       })
@@ -55,21 +57,29 @@ class App extends Component {
     this.setState({selectedPool: null})
   }
   createPool = (poolName) => {
+    // Create a new pool
     request
       .post('http://localhost:9292/pools')
       .type('form')
       .send({name: poolName})
-      .send({user_id: this.state.user.id})
+      .send({user_id: this.state.userId})
       .end((err, res) => {
         if (err) {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          this.setState({pools: parsedData.data})
+          this.setState({
+            username: parsedData.data.user.name,
+            userId: parsedData.data.user.id,
+            totalBet: parsedData.data.total_bet,
+            numberOfPools: parsedData.data.number_of_pools,
+            pools: [...parsedData.data.pools]
+          })
         }
       })
   }
   createInvite = (username) => {
+    // Invite Users to a selected Pool
     request
       .post('http://localhost:9292/pools/invite')
       .type('form')
@@ -86,6 +96,7 @@ class App extends Component {
   }
   createBid = (bid) => {
     console.log(bid)
+    // Finalize a bid for a team
     request
       .post('http://localhost:9292/pools/bid')
       .type('form')

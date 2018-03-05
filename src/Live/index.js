@@ -69,12 +69,10 @@ export default class Live extends Component{
 
 				<div id="bidding">
 					<h3>{this.state.teamUp.name}</h3>
-
 					<p>
 						<span>{this.state.topBid.topBidder}</span>
 						<span>{this.state.topBid.bidAmount}</span>
 					</p>
-
 				</div>
 
 
