@@ -108,7 +108,6 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          console.log(parsedData)
           this.setState({selectedPool: parsedData.data})
         }
       })

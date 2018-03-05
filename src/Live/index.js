@@ -38,6 +38,7 @@ export default class Live extends Component{
 
 
 	render(){
+		console.log(this.props.selectedPool.teams)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
