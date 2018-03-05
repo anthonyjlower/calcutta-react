@@ -12,9 +12,6 @@ export default class Auction extends Component {
 		}
 	}
 
-	createModal = () => {
-		document.getElementById('invite-modal').style.display = 'block'
-	}
 	handleChange = (e) => {
 		this.setState({inviteName: e.currentTarget.value})
 	}
@@ -22,7 +19,7 @@ export default class Auction extends Component {
 		e.preventDefault()
 		this.props.createInvite(this.state.inviteName);
 		this.setState({inviteName: ""})
-		document.getElementById('invite-modal').style.display = 'none'	
+		document.getElementById('modal').style.display = 'none'	
 	}
 	
 	render(){		
@@ -31,20 +28,24 @@ export default class Auction extends Component {
 		})
 		
 		return(
-			<div>
+			<div id='auction-body'>
 				<header className='head'>
 					<h1>{this.props.selectedPool.pool.name}</h1>
-					<div id="add-new-btn" onClick={this.createModal}>+ New Invite</div>
+					<div id="add-new-btn" onClick={this.props.clearPool}>Home</div>
+					<div id="add-new-btn" onClick={this.props.createModal}>+ New Invite</div>
 				</header>
 
 				<Live selectedPool={this.props.selectedPool} createBid={this.props.createBid}/>
 
 				{userList}
 
-				<div id="invite-modal">
+				<div id="modal">
 					<div id="invite-modal-content">
+						<div id='esc' onClick={this.props.clearModal}>
+							X 
+						</div>
 						<form>
-							Pool Name: <input type="text" name="name" value={this.state.inviteName} placeholder="Username" onChange={this.handleChange}/>
+							Invite User: <input type="text" name="name" value={this.state.inviteName} placeholder="Username" onChange={this.handleChange}/>
 							<button onClick={this.submitChange}>Send Invite</button>
 						</form>
 					</div>

@@ -51,6 +51,9 @@ class App extends Component {
         }
       })
   }
+  clearPool = () => {
+    this.setState({selectedPool: null})
+  }
   createPool = (poolName) => {
     request
       .post('http://localhost:9292/pools')
@@ -111,7 +114,7 @@ class App extends Component {
           <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username}
           totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools}
           viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
-          createBid={this.createBid}
+          createBid={this.createBid} clearPool={this.clearPool}
           />
           : <Login />}
         

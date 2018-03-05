@@ -8,18 +8,15 @@ export default class Live extends Component{
 
 		this.state = {
 			inviteName: "",
+			lotsRemaining: 64,
+			auctionStarted: false,
 			teamUp: {
-				id: "",
-				name: "",
-				seed: "",
-				season_wins: '',
-				season_losses: '',
-				still_alive: true,
-				tourney_wins: 0
+				name: "Team Name",
+				id: '',
 			},
-			winningBid: {
-				name: "",
-				value: ""
+			topBid: {
+				topBidder: "Top Bidder",
+				bidAmount: "Top Bid"
 			}
 		}
 	}
@@ -41,6 +38,7 @@ export default class Live extends Component{
 
 
 	render(){
+		console.log(this.props)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
@@ -51,28 +49,36 @@ export default class Live extends Component{
 		})
 
 		return(
-			<div>
-
+			<div id='live-body'>
 				<div id="pool-info">
 					<div>
-						Pot Value
+						<p>Pot Value</p>
+						<p>{this.props.selectedPool.pot_size}</p>
 					</div>
 
 					<div>
-						Teams remaining
+						<p>Teams remaining</p>
+						<p>{this.state.lotsRemaining}</p>
 					</div>
 
-					<button onClick={this.drawTeam}>Draw a Team</button>
+					<span id='controls'>
+						{this.state.lotsRemaining === 0 ? null :
+						!this.state.auctionStarted ? <div>Start the Auction</div> : <div>Draw a Team</div>}
+					</span>
+				</div>
+
+				<div id="bidding">
+					<h3>{this.state.teamUp.name}</h3>
+
+					<p>
+						<span>{this.state.topBid.topBidder}</span>
+						<span>{this.state.topBid.bidAmount}</span>
+					</p>
+
 				</div>
 
 
-				<form>
-					<input type='text' value={this.state.teamUp.name} placeholder="Team Name"/>
-					<input type='text' value={this.state.winningBid.name} placeholder="Winning Bidder"/>
-					<input type='text' value={this.state.winningBid.value}/>
-					<input type='hidden' value={this.state.teamUp.id}/>
-					<button onClick={this.submitBid}>Finalize Bid</button>
-				</form>
+				
 				
 
 				<div id='team-list'>

@@ -15,9 +15,6 @@ export default class Pools extends Component {
 	handlePool = (e) => {
 		this.props.viewPool(e.currentTarget.id)
 	}
-	createModal = () => {
-		document.getElementById('pool-modal').style.display = 'block'
-	}
 	handleChange = (e) => {
 		this.setState({newPool: e.currentTarget.value})
 	}
@@ -43,7 +40,7 @@ export default class Pools extends Component {
 			<div id='pool-body'>
 				<header className='head'>
 					<h1>Calcutta Manager</h1>
-					<div id="add-new-btn" onClick={this.createModal}>+ New Pool</div>
+					<div id="add-new-btn" onClick={this.props.createModal}>+ New Pool</div>
 				</header>
 				<section id='summary-holder'>
 					<h2>Hello {this.props.username}</h2>
@@ -65,11 +62,14 @@ export default class Pools extends Component {
 					{poolsList}
 				</section>
 
-				<div id="pool-modal">
+				<div id="modal">
 					<div id="pool-modal-content">
+						<div id='esc' onClick={this.props.clearModal}>
+							X 
+						</div>
 						<form>
 							Pool Name: <input type="text" name="name" value={this.state.newPool} placeholder="Pool Name" onChange={this.handleChange}/>
-							<button onClick={this.submitChange}>submit</button>
+							<button onClick={this.submitChange}>Create Pool</button>
 						</form>
 					</div>
 				</div>

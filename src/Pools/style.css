@@ -1,3 +1,6 @@
+#pool-body{
+	background-color: rgb(241, 250, 238);
+}
 .head{
 	height: 10vh;
 	display: flex;
@@ -50,8 +53,8 @@
 	text-decoration: underline;
 	cursor: pointer;
 }
-#pool-modal {
-  background-color: rgba(100, 100, 100, 0.5);
+#modal {
+  background-color: rgba(100, 100, 100, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -64,17 +67,17 @@
   justify-content: center;
 }
 #pool-modal-content {
-  background-color: #eaeaea;
+  background-color: rgb(241, 250, 238);
   padding: 20px;
   width: 300px;
-  margin: 20px;
+  margin: 20px auto;
   border-radius: 20px;
   flex:flex-basis;
   padding-bottom: 40px;
-  height: 450px;
+  height: 170px;
 }
 #pool-modal-content input{
-	height: 30px;
+	height: 50px;
   border-radius: 20px;
 	width: 200px;
   z-index: 4;
@@ -82,14 +85,25 @@
 #pool-modal-content button{
 	height: 100px;
 	width: 100px;
-	background-color: midnightblue;
-	color: white;
+	background-color: rgb(69, 123, 157);
+	color: rgb(241, 250, 238);
+  border-radius: 25%;
 	margin-top: 20px;
 }
 form {
+  color: rgb(29, 53, 87);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+}
+#esc{
+	 width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  float: right;
+  margin: -10px -10px 0 0;
+  cursor: pointer;
+  color: rgb(230, 57, 70);
 }
 
 
