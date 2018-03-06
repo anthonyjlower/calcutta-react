@@ -6,6 +6,11 @@ import Auction from '../Auction'
 
 export default class Home extends Component {
 
+	componentDidMount = () => {
+		console.log('Home mounted')
+		this.props.getUserInfo()
+	}
+
 	clearModal = () => {
 		this.setState({newPool: ''})
 		document.getElementById('modal').style.display = 'none'

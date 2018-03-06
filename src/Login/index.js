@@ -3,22 +3,21 @@ import './style.css'
 
 
 export default class Login extends Component {
+	
 
 	render(){
 		return(
 			<div>
 				<form>
 					<h2>Log In to Your Account</h2>
-					<input type='text' placeholder='username' />
-					<input type='password' placeholder='password' />
-					<button>Login</button>
+					<input type='text' placeholder='username' onChange={this.props.handleLogin}/>
+					<button onClick={this.props.submitLogin}>Login</button>
 				</form>
 
 
 				<form>
 					<h2> Create a New Account </h2>
 					<input type='text' placeholder='username' />
-					<input type='password' placeholder='password' />
 					<button>Register</button>
 				</form>
 			</div>

@@ -9,7 +9,7 @@ class App extends Component {
     super();
 
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
       selectedPool: null,
       username: "",
       userId: "",
@@ -19,18 +19,20 @@ class App extends Component {
     }
   }
   componentDidMount(){
+    
+  }
+
+  getUserInfo = () => {
     // Get all of the data for the logged in user
     request
-      .get('http://localhost:9292/users/')
-      // .withCredentials() will use when tracking sessions
+      .get('http://localhost:9292/users/' + this.state.userId)
+      .withCredentials()
       .end((err, res) => {
         if (err) {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
-            username: parsedData.data.user.name,
-            userId: parsedData.data.user.id,
             totalBet: parsedData.data.total_bet,
             numberOfPools: parsedData.data.number_of_pools,
             pools: [...parsedData.data.pools]
@@ -38,7 +40,6 @@ class App extends Component {
         }
       })  
   }
-
   viewPool = (id) =>{
     // View all of the info for the selected pool
     request
@@ -111,7 +112,28 @@ class App extends Component {
           this.setState({selectedPool: parsedData.data})
         }
       })
-
+  }
+  handleLogin = (e) => {
+    this.setState({username: e.currentTarget.value})
+  }
+  submitLogin = (e) => {
+    e.preventDefault();
+    console.log("State username => ", this.state.username)
+    request
+      .post('http://localhost:9292/users/login')
+      .type('form')
+      .send({username: this.state.username})
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          const parsedData = JSON.parse(res.text)
+          this.setState({
+            userId: parsedData.data.user.id,
+            loggedIn: true
+          })
+        }
+      })
   }
   
 
@@ -123,10 +145,9 @@ class App extends Component {
           <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username}
           totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools}
           viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
-          createBid={this.createBid} clearPool={this.clearPool}
+          createBid={this.createBid} clearPool={this.clearPool} getUserInfo={this.getUserInfo}
           />
-          : <Login />}
-        
+          : <Login submitLogin={this.submitLogin} handleLogin={this.handleLogin}/>}
           
       </div>
     );
