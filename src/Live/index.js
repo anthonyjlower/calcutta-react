@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-// import {socket} from '../index';
+import {socket} from '../index';
 
 
 export default class Live extends Component{
@@ -8,7 +8,6 @@ export default class Live extends Component{
 		super(props);
 
 		this.state = {
-
 			inviteName: "",
 			lotsToPick: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
 			lotsRemaining: 64 - this.props.selectedPool.number_of_bids,
@@ -19,33 +18,31 @@ export default class Live extends Component{
 			},
 			topBid: {
 				topBidder: "Top Bidder",
-				bidAmount: "Top Bid"
+				bidAmount: 1
 			}
 		}
+	}
+	componentDidMount = () => {
+		socket.on('user bid', (userBid) => {
+			this.setState({topBid: userBid})
+		})
 	}
 
 	drawTeam = () => {
 		const randomIndex = Math.floor(Math.random()*this.state.lotsToPick.length);
-
 		const teamNum = this.state.lotsToPick[randomIndex];
-
 		const teamUp = this.props.selectedPool.teams[teamNum];
-		
 		const team = {
 			name: teamUp.name,
 			id: teamNum + 1
 		};
-		console.log(team.name)
-
 		const stateLots = this.state.lotsToPick;
-		stateLots.splice(randomIndex, 1)
-
+		stateLots.splice(randomIndex, 1);
 		this.setState({
 			lotsToPick: stateLots,
 			lotsRemaining: this.state.lotsRemaining -+ 1,
 			teamUp: team
 		});
-
 	}
 	submitBid = (e) => {
 		e.preventDefault();
@@ -53,12 +50,25 @@ export default class Live extends Component{
 			team_id: this.state.teamUp.id,
 			username: this.state.winningBid.name,
 			amount: this.state.winningBid.value
-		}
-		this.props.createBid(bid)
+		};
+		this.props.createBid(bid);
 	}
 	startAuction = () => {
-		this.props.clearModal()
-		this.setState({auctionStarted: true})
+		this.props.clearModal();
+		this.setState({auctionStarted: true});
+	}
+	placeBid = (e) => {
+		e.preventDefault();
+		const bidAmount = parseInt(e.currentTarget.childNodes[0].value);
+		if (bidAmount > this.state.topBid.bidAmount) {
+			const topBid = {
+				topBidder: this.props.username,
+				bidAmount: bidAmount
+			};
+			this.setState({topBid: topBid});
+			socket.emit('top bid', this.state.topBid)
+		};
+		e.currentTarget.childNodes[0].value = "";
 	}
 
 
@@ -97,6 +107,13 @@ export default class Live extends Component{
 						<span>{this.state.topBid.topBidder}</span>
 						<span>{this.state.topBid.bidAmount}</span>
 					</p>
+				</div>
+
+
+				<div id='messages'>
+					<form onSubmit={this.placeBid}>
+						<input type="number" name="Bid Amount" placeholder="Enter Bid Amount"/>
+					</form>
 				</div>
 
 
