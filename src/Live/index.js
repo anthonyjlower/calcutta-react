@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
+// import {socket} from '../index';
 
 
 export default class Live extends Component{
@@ -7,8 +8,10 @@ export default class Live extends Component{
 		super(props);
 
 		this.state = {
+
 			inviteName: "",
-			lotsRemaining: 64,
+			lotsToPick: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
+			lotsRemaining: 64 - this.props.selectedPool.number_of_bids,
 			auctionStarted: false,
 			teamUp: {
 				name: "Team Name",
@@ -21,10 +24,28 @@ export default class Live extends Component{
 		}
 	}
 
-	drawTeam = (e) => {
-		e.preventDefault();
-		const random = Math.floor(Math.random()*this.state.teams.length);
-		this.setState({teamUp: this.state.teams[random]})
+	drawTeam = () => {
+		const randomIndex = Math.floor(Math.random()*this.state.lotsToPick.length);
+
+		const teamNum = this.state.lotsToPick[randomIndex];
+
+		const teamUp = this.props.selectedPool.teams[teamNum];
+		
+		const team = {
+			name: teamUp.name,
+			id: teamNum + 1
+		};
+		console.log(team.name)
+
+		const stateLots = this.state.lotsToPick;
+		stateLots.splice(randomIndex, 1)
+
+		this.setState({
+			lotsToPick: stateLots,
+			lotsRemaining: this.state.lotsRemaining -+ 1,
+			teamUp: team
+		});
+
 	}
 	submitBid = (e) => {
 		e.preventDefault();
@@ -35,10 +56,13 @@ export default class Live extends Component{
 		}
 		this.props.createBid(bid)
 	}
+	startAuction = () => {
+		this.props.clearModal()
+		this.setState({auctionStarted: true})
+	}
 
 
 	render(){
-		console.log(this.props.selectedPool.teams)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
@@ -63,7 +87,7 @@ export default class Live extends Component{
 
 					<span id='controls'>
 						{this.state.lotsRemaining === 0 ? null :
-						!this.state.auctionStarted ? <div>Start the Auction</div> : <div>Draw a Team</div>}
+						!this.state.auctionStarted ? <div onClick={this.props.createModal}>Start the Auction</div> : <div onClick={this.drawTeam}>Draw a Team</div>}
 					</span>
 				</div>
 
@@ -81,6 +105,25 @@ export default class Live extends Component{
 
 				<div id='team-list'>
 					{teamList}
+				</div>
+
+
+				<div id="modal">
+					<div id="auction-modal-content">
+						<div id='esc' onClick={this.props.clearModal}>
+							X 
+						</div>
+						<p>Are you sure you are ready to start the auction. Once it starts you cannot stop it.</p>
+						
+						<span>
+							<div id='go' className='btns' onClick={this.startAuction}>
+								Yeah! Let's do it!
+							</div> 
+							<div id='stop' className='btns' onClick={this.props.clearModal}>
+								Ehhh! Let's wait
+							</div>
+						</span>
+					</div>
 				</div>
 
 			</div>
