@@ -3,6 +3,7 @@ import './App.css';
 import Login from './Login';
 import Home from './Home';
 import request from 'superagent';
+import {socket} from './index'
 
 class App extends Component {
   constructor(){
@@ -49,9 +50,12 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          this.setState({selectedPool: parsedData.data})   
+          this.setState({selectedPool: parsedData.data})
+          // console.log(this.state.selectedPool)
+          socket.emit('addUser', (this.state.selectedPool.pool.name))
         }
       })
+    
   }
   clearPool = () => {
     this.setState({selectedPool: null})

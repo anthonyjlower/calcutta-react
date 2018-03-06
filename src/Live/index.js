@@ -18,13 +18,16 @@ export default class Live extends Component{
 			},
 			topBid: {
 				topBidder: "Top Bidder",
-				bidAmount: 1
+				bidAmount: 0,
 			}
 		}
 	}
 	componentDidMount = () => {
 		socket.on('user bid', (userBid) => {
 			this.setState({topBid: userBid})
+		})
+		socket.on('team up', (teamUp) => {
+			this.setState({teamUp: teamUp})
 		})
 	}
 
@@ -43,6 +46,7 @@ export default class Live extends Component{
 			lotsRemaining: this.state.lotsRemaining -+ 1,
 			teamUp: team
 		});
+		socket.emit('team up', this.state.teamUp)
 	}
 	submitBid = (e) => {
 		e.preventDefault();
@@ -65,8 +69,8 @@ export default class Live extends Component{
 				topBidder: this.props.username,
 				bidAmount: bidAmount
 			};
-			this.setState({topBid: topBid});
-			socket.emit('top bid', this.state.topBid)
+			// this.setState({topBid: topBid});
+			socket.emit('top bid', topBid)
 		};
 		e.currentTarget.childNodes[0].value = "";
 	}
