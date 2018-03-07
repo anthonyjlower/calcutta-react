@@ -35,7 +35,7 @@ export default class Auction extends Component {
 					<div id="add-new-btn" onClick={this.props.createModal}>+ New Invite</div>
 				</header>
 
-				<Live username={this.props.username} selectedPool={this.props.selectedPool} createBid={this.props.createBid} createModal={this.props.createModal} clearModal={this.props.clearModal}/>
+				<Live userId={this.props.userId} username={this.props.username} selectedPool={this.props.selectedPool} createBid={this.props.createBid} createModal={this.props.createModal} clearModal={this.props.clearModal}/>
 
 				{userList}
 

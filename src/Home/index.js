@@ -27,8 +27,9 @@ export default class Home extends Component {
 						createPool={this.props.createPool} createModal={this.createModal} clearModal={this.clearModal} totalWon={this.props.totalWon}
 					/>
 				</div>:
-					<Auction selectedPool={this.props.selectedPool} createInvite={this.props.createInvite} createBid={this.props.createBid} 
+					<Auction selectedPool={this.props.selectedPool} createInvite={this.props.createInvite} createBid={this.props.createBid} userId={this.props.userId}
 						createModal={this.createModal} clearModal={this.clearModal} clearPool={this.props.clearPool} username={this.props.username}/>
+					}
 				}
 			</div>
 		)

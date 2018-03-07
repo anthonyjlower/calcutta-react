@@ -146,7 +146,7 @@ class App extends Component {
       <div className="App">
 
         {this.state.loggedIn ?
-          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username}
+          <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username} userId={this.state.userId}
           totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools} totalWon={this.state.totalWon}
           viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
           createBid={this.createBid} clearPool={this.clearPool} getUserInfo={this.getUserInfo}

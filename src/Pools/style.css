@@ -39,12 +39,15 @@
 #pool-holder{
 	display: flex;
 	justify-content: space-around;
-	/*flex-wrap: wrap;*/
+	flex-wrap: wrap;
+	padding-bottom: 10vh;
 }
 .pool-card{
+	margin-top: 2vh;
 	width: 25%;
 	border: 10px solid;
 	border-color: rgb(168, 218, 220);
+	text-align: center;
 }
 .pool-card h3{
 	text-align: center;

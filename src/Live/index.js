@@ -71,7 +71,7 @@ export default class Live extends Component{
 	}
 	placeBid = (e) => {
 		e.preventDefault();
-		const bidAmount = parseInt(e.currentTarget.childNodes[0].value);
+		const bidAmount = parseInt(e.currentTarget.childNodes[0].value, 10);
 		if (bidAmount > this.state.topBid.bidAmount) {
 			const topBid = {
 				topBidder: this.props.username,
@@ -85,6 +85,7 @@ export default class Live extends Component{
 
 
 	render(){
+		console.log('Live Comp props => ', this.props)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
@@ -108,7 +109,7 @@ export default class Live extends Component{
 					</div>
 
 					<span id='controls'>
-						{this.state.lotsRemaining === 0 ? null :
+						{this.state.lotsRemaining === 0 || this.props.userId !== this.props.selectedPool.pool.owner ? null :
 						!this.state.auctionStarted ? <div onClick={this.props.createModal}>Start the Auction</div> : <div onClick={this.drawTeam}>Draw a Team</div>}
 					</span>
 				</div>
