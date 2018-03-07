@@ -28,8 +28,6 @@ export default class Live extends Component{
 		});
 
 		socket.on('joined', (currentBid, currentTeam) => {
-			console.log('currentBid ---->', currentBid)
-			console.log('currentTeam ---->', currentTeam)
 			this.setState({
 				topBid: currentBid,
 				teamUp: currentTeam
@@ -91,7 +89,7 @@ export default class Live extends Component{
 			return(
 				<div className="team-card" key={i}>
 					<p>{team.seed} {team.name} | {team.season_wins}-{team.season_losses} | {team.tourney_wins}</p> 
-					<p> {team.bid.username} | {team.bid.amount} | Winnings</p>
+					<p> {team.bid.username} | {team.bid.amount} | {team.winnings}</p>
 				</div> 
 			)
 		})

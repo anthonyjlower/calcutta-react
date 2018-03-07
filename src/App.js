@@ -15,6 +15,7 @@ class App extends Component {
       username: "",
       userId: "",
       totalBet: "",
+      totalWon: '',
       numberOfPools: "",
       pools: []
     }
@@ -35,6 +36,7 @@ class App extends Component {
           const parsedData = JSON.parse(res.text)
           this.setState({
             totalBet: parsedData.data.total_bet,
+            totalWon: parsedData.data.total_won,
             numberOfPools: parsedData.data.number_of_pools,
             pools: [...parsedData.data.pools]
           })
@@ -145,7 +147,7 @@ class App extends Component {
 
         {this.state.loggedIn ?
           <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username}
-          totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools}
+          totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools} totalWon={this.state.totalWon}
           viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
           createBid={this.createBid} clearPool={this.clearPool} getUserInfo={this.getUserInfo}
           />

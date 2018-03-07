@@ -30,8 +30,8 @@ export default class Pools extends Component {
 			return (
 				<div className='pool-card' key={i} id={pool.id} onClick={this.handlePool}>
 					<h3>{pool.name}</h3>
-					<p>Bet Size {pool.sum_of_bids}</p>
-					<p>Money Made</p>
+					<p>Bet Size {pool.user_bets}</p>
+					<p>Money Won {pool.user_winnings}</p>
 				</div>
 			)
 		})
@@ -55,6 +55,7 @@ export default class Pools extends Component {
 						</div>
 						<div className="summary-box">
 							<h3>Total Amount Won</h3>
+							<p>{this.props.totalWon}</p>
 						</div>
 					</div>
 				</section>
