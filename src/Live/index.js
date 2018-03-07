@@ -49,21 +49,30 @@ export default class Live extends Component{
 		};
 		const stateLots = this.state.lotsToPick;
 		stateLots.splice(randomIndex, 1);
-		// this.setState({
-		// 	lotsToPick: stateLots,
-		// 	lotsRemaining: this.state.lotsRemaining -+ 1,
-		// 	teamUp: team
-		// });
 		socket.emit('team up', team)
 	}
-	submitBid = (e) => {
-		e.preventDefault();
+	submitWinningBid = () => {
 		const bid = {
 			team_id: this.state.teamUp.id,
-			username: this.state.winningBid.name,
-			amount: this.state.winningBid.value
+			username: this.state.topBid.topBidder,
+			amount: this.state.topBid.bidAmount
 		};
+		// console.log(bid)
 		this.props.createBid(bid);
+
+		const teamUp = {
+				name: "Team Name",
+				id: ''
+			}
+		const topBid = {
+				topBidder: "Top Bidder",
+				bidAmount: 0,
+			}
+
+		this.setState({
+			teamUp: teamUp,
+			topBid: topBid
+		})
 	}
 	startAuction = () => {
 		this.props.clearModal();
@@ -85,7 +94,6 @@ export default class Live extends Component{
 
 
 	render(){
-		console.log('Live Comp props => ', this.props)
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
@@ -99,19 +107,22 @@ export default class Live extends Component{
 			<div id='live-body'>
 				<div id="pool-info">
 					<div>
-						<p>Pot Value</p>
+						<h3>Pot Value</h3>
 						<p>{this.props.selectedPool.pot_size}</p>
 					</div>
 
 					<div>
-						<p>Teams remaining</p>
+						<h3>Teams remaining</h3>
 						<p>{this.state.lotsRemaining}</p>
 					</div>
 
-					<span id='controls'>
+					
 						{this.state.lotsRemaining === 0 || this.props.userId !== this.props.selectedPool.pool.owner ? null :
-						!this.state.auctionStarted ? <div onClick={this.props.createModal}>Start the Auction</div> : <div onClick={this.drawTeam}>Draw a Team</div>}
-					</span>
+						<span id='controls'>
+						{!this.state.auctionStarted ? 
+							<div onClick={this.props.createModal}>Start the Auction</div> : 
+							<div onClick={this.drawTeam}>Draw a Team</div>}
+						</span>}
 				</div>
 
 				<div id="bidding">
@@ -120,6 +131,10 @@ export default class Live extends Component{
 						<span>{this.state.topBid.topBidder}</span>
 						<span>{this.state.topBid.bidAmount}</span>
 					</p>
+					{this.props.userId !== this.props.selectedPool.pool.owner ? null :
+					<div onClick={this.submitWinningBid}>
+						Finalize Bid
+					</div>}
 				</div>
 
 

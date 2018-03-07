@@ -21,7 +21,10 @@ class App extends Component {
     }
   }
   componentDidMount(){
-    
+    socket.on('updatedPool', (currentPool) => {
+      console.log('socket.on updatedPool => ', currentPool)
+      this.setState({selectedPool: currentPool})
+    }) 
   }
 
   getUserInfo = () => {
@@ -99,7 +102,7 @@ class App extends Component {
       })
   }
   createBid = (bid) => {
-    console.log(bid)
+    // console.log(bid)
     // Finalize a bid for a team
     request
       .post('http://localhost:9292/pools/bid')
@@ -113,8 +116,7 @@ class App extends Component {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
-          this.setState({selectedPool: parsedData.data})
-          socket.emit('selectedPool', )
+          socket.emit('selectedPool', parsedData.data)
         }
       })
   }
