@@ -51,11 +51,9 @@ class App extends Component {
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({selectedPool: parsedData.data})
-          // console.log(this.state.selectedPool)
-          socket.emit('addUser', (this.state.selectedPool.pool.name))
+          socket.emit('addUser', this.state.selectedPool.pool.name)
         }
       })
-    
   }
   clearPool = () => {
     this.setState({selectedPool: null})
@@ -114,6 +112,7 @@ class App extends Component {
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({selectedPool: parsedData.data})
+          socket.emit('selectedPool', )
         }
       })
   }
@@ -122,7 +121,6 @@ class App extends Component {
   }
   submitLogin = (e) => {
     e.preventDefault();
-    console.log("State username => ", this.state.username)
     request
       .post('http://localhost:9292/users/login')
       .type('form')

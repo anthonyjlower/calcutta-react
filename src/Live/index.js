@@ -14,7 +14,7 @@ export default class Live extends Component{
 			auctionStarted: false,
 			teamUp: {
 				name: "Team Name",
-				id: '',
+				id: ''
 			},
 			topBid: {
 				topBidder: "Top Bidder",
@@ -25,7 +25,17 @@ export default class Live extends Component{
 	componentDidMount = () => {
 		socket.on('user bid', (userBid) => {
 			this.setState({topBid: userBid})
-		})
+		});
+
+		socket.on('joined', (currentBid, currentTeam) => {
+			console.log('currentBid ---->', currentBid)
+			console.log('currentTeam ---->', currentTeam)
+			this.setState({
+				topBid: currentBid,
+				teamUp: currentTeam
+			})
+		});
+
 		socket.on('team up', (teamUp) => {
 			this.setState({teamUp: teamUp})
 		})
@@ -41,12 +51,12 @@ export default class Live extends Component{
 		};
 		const stateLots = this.state.lotsToPick;
 		stateLots.splice(randomIndex, 1);
-		this.setState({
-			lotsToPick: stateLots,
-			lotsRemaining: this.state.lotsRemaining -+ 1,
-			teamUp: team
-		});
-		socket.emit('team up', this.state.teamUp)
+		// this.setState({
+		// 	lotsToPick: stateLots,
+		// 	lotsRemaining: this.state.lotsRemaining -+ 1,
+		// 	teamUp: team
+		// });
+		socket.emit('team up', team)
 	}
 	submitBid = (e) => {
 		e.preventDefault();
