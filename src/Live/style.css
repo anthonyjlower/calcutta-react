@@ -19,15 +19,15 @@
 }
 #team-list{
 	display: flex;
-	width: 95vw;
+	width: 100vw;
 	flex-wrap: wrap;
 	margin: 0 auto;
 }
 .team-card{
 	text-align: center;
-	width: 10vw;
+	width: 11.5vw;
 	font-size: 1vw;
-	margin: .5vw auto;
+	margin: .25vw auto;
 	border: 4px solid rgb(168, 218, 220);
 	color: rgb(29, 53, 87);
 }

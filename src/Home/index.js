@@ -30,7 +30,6 @@ export default class Home extends Component {
 					<Auction selectedPool={this.props.selectedPool} createInvite={this.props.createInvite} createBid={this.props.createBid} userId={this.props.userId}
 						createModal={this.createModal} clearModal={this.clearModal} clearPool={this.props.clearPool} username={this.props.username}/>
 					}
-				}
 			</div>
 		)
 	}

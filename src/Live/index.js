@@ -9,9 +9,9 @@ export default class Live extends Component{
 
 		this.state = {
 			inviteName: "",
-			lotsToPick: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
-			lotsRemaining: 64 - this.props.selectedPool.number_of_bids,
-			auctionStarted: false,
+			lotsToPick: [],
+			lotsRemaining: "",
+			auctionStarted: "",
 			teamUp: {
 				name: "Team Name",
 				id: ''
@@ -27,15 +27,26 @@ export default class Live extends Component{
 			this.setState({topBid: userBid})
 		});
 
-		socket.on('joined', (currentBid, currentTeam) => {
+		socket.on('joined', (currentBid, currentTeam, startedBool, toPick, remaining) => {
 			this.setState({
 				topBid: currentBid,
-				teamUp: currentTeam
+				teamUp: currentTeam,
+				auctionStarted: startedBool,
+				lotsToPick: [...toPick],
+				lotsRemaining: remaining
 			})
 		});
 
-		socket.on('team up', (teamUp) => {
-			this.setState({teamUp: teamUp})
+		socket.on('team up', (teamUp, toPick, remaining) => {
+			this.setState({
+				teamUp: teamUp,
+				lotsToPick: [...toPick],
+				lotsRemaining: remaining
+			})
+		});
+
+		socket.on('auctionStarted', (startedBool) => {
+			this.setState({auctionStarted: startedBool})
 		})
 	}
 
@@ -49,7 +60,8 @@ export default class Live extends Component{
 		};
 		const stateLots = this.state.lotsToPick;
 		stateLots.splice(randomIndex, 1);
-		socket.emit('team up', team)
+		console.log(stateLots)
+		socket.emit('team up', team, stateLots)
 	}
 	submitWinningBid = () => {
 		const bid = {
@@ -57,11 +69,13 @@ export default class Live extends Component{
 			username: this.state.topBid.topBidder,
 			amount: this.state.topBid.bidAmount
 		};
+		console.log('submittedBid')
 		this.props.createBid(bid);
 	}
 	startAuction = () => {
 		this.props.clearModal();
-		this.setState({auctionStarted: true});
+		const auctionStarted = true
+		socket.emit('auctionStarted', auctionStarted)
 	}
 	placeBid = (e) => {
 		e.preventDefault();
@@ -71,7 +85,6 @@ export default class Live extends Component{
 				topBidder: this.props.username,
 				bidAmount: bidAmount
 			};
-			// this.setState({topBid: topBid});
 			socket.emit('top bid', topBid)
 		};
 		e.currentTarget.childNodes[0].value = "";
@@ -148,7 +161,7 @@ export default class Live extends Component{
 						<div id='esc' onClick={this.props.clearModal}>
 							X 
 						</div>
-						<p>Are you sure you are ready to start the auction. Once it starts you cannot stop it.</p>
+						<p>Are you sure you are ready to start the auction. Once it starts you need to finish it before leaving.</p>
 						
 						<span>
 							<div id='go' className='btns' onClick={this.startAuction}>

@@ -22,7 +22,6 @@ class App extends Component {
   }
   componentDidMount(){
     socket.on('updatedPool', (currentPool) => {
-      console.log('socket.on updatedPool => ', currentPool)
       this.setState({selectedPool: currentPool})
     }) 
   }
@@ -102,7 +101,6 @@ class App extends Component {
       })
   }
   createBid = (bid) => {
-    // console.log(bid)
     // Finalize a bid for a team
     request
       .post('http://localhost:9292/pools/bid')

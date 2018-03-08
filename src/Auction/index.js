@@ -25,7 +25,7 @@ export default class Auction extends Component {
 		e.preventDefault()
 		this.props.createInvite(this.state.inviteName);
 		this.setState({inviteName: ""})
-		document.getElementById('modal').style.display = 'none'	
+		document.getElementById('invite-modal').style.display = 'none'	
 	}
 	
 	render(){		
