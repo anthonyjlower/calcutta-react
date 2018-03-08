@@ -12,6 +12,12 @@ export default class Auction extends Component {
 		}
 	}
 
+	createModal = () => {
+		document.getElementById('invite-modal').style.display = 'block'
+	}
+	clearModal = () => {
+		document.getElementById('invite-modal').style.display = 'none'
+	}
 	handleChange = (e) => {
 		this.setState({inviteName: e.currentTarget.value})
 	}
@@ -32,16 +38,16 @@ export default class Auction extends Component {
 				<header className='head'>
 					<h1>{this.props.selectedPool.pool.name}</h1>
 					<div id="add-new-btn" onClick={this.props.clearPool}>Home</div>
-					<div id="add-new-btn" onClick={this.props.createModal}>+ New Invite</div>
+					<div id="add-new-btn" onClick={this.createModal}>+ New Invite</div>
 				</header>
 
 				<Live userId={this.props.userId} username={this.props.username} selectedPool={this.props.selectedPool} createBid={this.props.createBid} createModal={this.props.createModal} clearModal={this.props.clearModal}/>
 
 				{userList}
 
-				<div id="modal">
+				<div id="invite-modal">
 					<div id="invite-modal-content">
-						<div id='esc' onClick={this.props.clearModal}>
+						<div id='esc' onClick={this.clearModal}>
 							X 
 						</div>
 						<form>

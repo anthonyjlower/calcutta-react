@@ -82,7 +82,7 @@ export default class Live extends Component{
 		const teamList = this.props.selectedPool.teams.map((team, i) => {
 			return(
 				<div className="team-card" key={i}>
-					<p>{team.seed} {team.name} | {team.season_wins}-{team.season_losses} | {team.tourney_wins}</p> 
+					<p>{team.seed}. {team.name} | {team.season_wins}-{team.season_losses} </p> 
 					<p> {team.bid.username} | {team.bid.amount} | {team.winnings}</p>
 				</div> 
 			)
@@ -110,25 +110,30 @@ export default class Live extends Component{
 						</span>}
 				</div>
 
-				<div id="bidding">
-					<h3>{this.state.teamUp.name}</h3>
-					<p>
-						<span>{this.state.topBid.topBidder}</span>
-						<span>{this.state.topBid.bidAmount}</span>
-					</p>
-					{this.props.userId !== this.props.selectedPool.pool.owner ? null :
-					<div onClick={this.submitWinningBid}>
-						Finalize Bid
-					</div>}
+				{this.state.lotRemaining === 0 || !this.state.auctionStarted ? null :
+				<div id='bid-holder'>
+					<div id="bidding">
+						<h3>{'Price to Beat'}</h3>
+						<p>
+							<span>{this.state.teamUp.name}</span>
+							<span>{this.state.topBid.topBidder}</span>
+							<span>{this.state.topBid.bidAmount}</span>
+						</p>
+						{this.props.userId !== this.props.selectedPool.pool.owner ? null :
+						<div onClick={this.submitWinningBid}>
+							Finalize Bid
+						</div>}
+					</div>
+
+					
+					<div id='messages'>
+						<h3>Place Bid</h3>
+						<form onSubmit={this.placeBid}>
+							<input type="number" name="Bid Amount" placeholder="Enter Bid Amount"/>
+						</form>
+					</div>					
 				</div>
-
-
-				<div id='messages'>
-					<form onSubmit={this.placeBid}>
-						<input type="number" name="Bid Amount" placeholder="Enter Bid Amount"/>
-					</form>
-				</div>
-
+				}
 
 				
 				
