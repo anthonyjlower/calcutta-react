@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import Live from '../Live';
+import UserView from '../UserView'
 
 
 export default class Auction extends Component {
@@ -8,7 +9,7 @@ export default class Auction extends Component {
 		super(props)
 
 		this.state = {
-			inviteName: ""
+			inviteName: "",
 		}
 	}
 
@@ -30,7 +31,7 @@ export default class Auction extends Component {
 	
 	render(){		
 		const userList = this.props.selectedPool.pool_members.map((user, i) => {
-			return <div key={i}>{user.name}</div>
+			return <div onClick={this.props.viewUser} className='user-name' id={user.id} key={i}>{user.name}</div>
 		})
 		
 		return(
@@ -43,7 +44,15 @@ export default class Auction extends Component {
 
 				<Live userId={this.props.userId} username={this.props.username} selectedPool={this.props.selectedPool} createBid={this.props.createBid} createModal={this.props.createModal} clearModal={this.props.clearModal}/>
 
-				{userList}
+				<section id="user-info">
+					<div id='list'>
+						<h3>Members</h3>
+						{userList}
+					</div>
+					<div id='user-view'>
+						<UserView selectedUser={this.props.selectedUser}/>
+					</div>
+				</section>
 
 				<div id="invite-modal">
 					<div id="invite-modal-content">

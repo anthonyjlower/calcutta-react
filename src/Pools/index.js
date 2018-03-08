@@ -39,7 +39,7 @@ export default class Pools extends Component {
 		return(
 			<div id='pool-body'>
 				<header className='head'>
-					<h1>Calcutta Manager</h1>
+					<h1>calcuttaCoin</h1>
 					<div id="add-new-btn" onClick={this.props.createModal}>+ New Pool</div>
 				</header>
 				<section id='summary-holder'>

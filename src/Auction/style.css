@@ -53,6 +53,31 @@ form {
   cursor: pointer;
   color: rgb(230, 57, 70);
 }
-ul{
-  
+#user-info{
+  display: flex;
+  border: 10px solid rgb(168, 218, 220);
+  margin-top: 5vh; 
+}
+#list{
+  width: 15vw;
+  border: 5px solid rgb(29, 53, 87);
+  /*padding: 5vh 0;*/
+}
+#list h3{
+  margin-top: 0;
+  color: rgb(29, 53, 87);
+  text-align: center;
+}
+#user-view{
+  width: 85vw;
+  border: 5px solid rgb(29, 53, 87);
+  color: rgb(29, 53, 87);
+}
+.user-name{
+  color: rgb(29, 53, 87);
+  padding: 1vh 0 .5vh 1vw;
+}
+.user-name:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }

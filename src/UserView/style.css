@@ -1,0 +1,33 @@
+/*#user-view-body{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}*/
+#user-data{
+	display: flex;
+	flex-direction: column;
+}
+#summary{
+	display: flex;
+	justify-content: space-around;
+	border-bottom: 10px solid rgb(29, 53, 87);
+	/*background-color: rgb(29, 53, 87);*/
+	padding-top: 1vh;
+}
+#summary h3{
+	margin-top: 0;
+}
+#team-list{
+	width: 100%;
+	display: flex;
+	/*justify-content: space-around;*/
+}
+.team{
+	width: 15%;
+	border: 2px solid rgb(69, 123, 157);
+	margin: 1vh .5vw;
+}
+.team h5, p{
+	margin: 0;
+	text-align: center;
+}

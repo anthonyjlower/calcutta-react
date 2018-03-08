@@ -12,6 +12,15 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       selectedPool: null,
+      selectedUser: {
+        user: {
+          id: "",
+          name: ''
+        },
+        total_bet: '',
+        total_won: '',
+        teams: []
+      },
       username: "",
       userId: "",
       totalBet: "",
@@ -59,8 +68,32 @@ class App extends Component {
         }
       })
   }
+  viewUser = (e) => {
+    // Get all of the selected User info in a pool
+    request
+      .get('http://localhost:9292/users/' + e.currentTarget.id  + '/pool/' +this.state.selectedPool.pool.id)
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          const parsedData = JSON.parse(res.text)
+          this.setState({selectedUser: parsedData.data})
+        }
+      })
+  }
   clearPool = () => {
-    this.setState({selectedPool: null})
+    this.setState({
+      selectedPool: null,
+      selectedUser: {
+        user: {
+          id: "",
+          name: ''
+        },
+        total_bet: '',
+        total_won: '',
+        teams: []
+      }
+    })
   }
   createPool = (poolName) => {
     // Create a new pool
@@ -147,9 +180,9 @@ class App extends Component {
 
         {this.state.loggedIn ?
           <Home selectedPool={this.state.selectedPool} pools={this.state.pools} username={this.state.username} userId={this.state.userId}
-          totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools} totalWon={this.state.totalWon}
+          totalBet={this.state.totalBet} numberOfPools={this.state.numberOfPools} totalWon={this.state.totalWon} selectedUser={this.state.selectedUser}
           viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
-          createBid={this.createBid} clearPool={this.clearPool} getUserInfo={this.getUserInfo}
+          createBid={this.createBid} clearPool={this.clearPool} getUserInfo={this.getUserInfo} viewUser={this.viewUser}
           />
           : <Login submitLogin={this.submitLogin} handleLogin={this.handleLogin}/>}
           
