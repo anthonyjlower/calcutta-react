@@ -1,0 +1,23 @@
+#login-body{
+	background-color: rgb(29, 53, 87);
+	height: 100vh;
+}
+#buffer{
+	height: 10vh;
+}
+.form{
+	margin: 0 auto;
+	height: 25vh;
+	width: 50vw;
+	background-color: rgb(241, 250, 238);
+	margin-bottom: 10vh;
+	border: 10px solid rgb(69, 123, 157);
+}
+.form h2{
+	color: rgb(29, 53, 87);
+	text-align: center;
+}
+.form input, button{
+	width: 50%;
+	margin: 0 auto;
+}

@@ -57,22 +57,7 @@ export default class Live extends Component{
 			username: this.state.topBid.topBidder,
 			amount: this.state.topBid.bidAmount
 		};
-		// console.log(bid)
 		this.props.createBid(bid);
-
-		const teamUp = {
-				name: "Team Name",
-				id: ''
-			}
-		const topBid = {
-				topBidder: "Top Bidder",
-				bidAmount: 0,
-			}
-
-		this.setState({
-			teamUp: teamUp,
-			topBid: topBid
-		})
 	}
 	startAuction = () => {
 		this.props.clearModal();
