@@ -72,7 +72,7 @@ class App extends Component {
   viewUser = (e) => {
     // Get all of the selected User info in a pool
     request
-      .get('https://calcutta-backend.herokuapp.com/' + e.currentTarget.id  + '/pool/' + this.state.selectedPool.pool.id)
+      .get('https://calcutta-backend.herokuapp.com/users/' + e.currentTarget.id  + '/pool/' + this.state.selectedPool.pool.id)
       .end((err, res) => {
         if (err) {
           // console.log(err)
