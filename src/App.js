@@ -191,7 +191,7 @@ class App extends Component {
           const parsedData = JSON.parse(res.text)
           this.setState({
             userId: parsedData.data.userId,
-            username: parsedData.data.userName,
+            username: parsedData.data.username,
             loggedIn: parsedData.data.loggedIn,
             message: parsedData.data.message
           })
