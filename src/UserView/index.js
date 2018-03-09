@@ -4,7 +4,6 @@ import './style.css';
 
 export default class UserView extends Component {
 	render(){
-		console.log(this.props)
 		const userTeams = this.props.selectedUser.teams.map((team, i) => {
 			return(
 				<div key={i} className='team'>

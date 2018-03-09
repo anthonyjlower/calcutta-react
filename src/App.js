@@ -43,7 +43,7 @@ class App extends Component {
       .withCredentials()
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
@@ -61,7 +61,7 @@ class App extends Component {
       .get('http://localhost:9292/pools/' + id)
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({selectedPool: parsedData.data})
@@ -71,13 +71,11 @@ class App extends Component {
   }
   viewUser = (e) => {
     // Get all of the selected User info in a pool
-    console.log(e.currentTarget.id)
-    console.log(this.state.selectedPool.pool.id)
     request
       .get('http://localhost:9292/users/' + e.currentTarget.id  + '/pool/' + this.state.selectedPool.pool.id)
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({selectedUser: parsedData.data})
@@ -107,7 +105,7 @@ class App extends Component {
       .send({user_id: this.state.userId})
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
@@ -129,7 +127,7 @@ class App extends Component {
       .send({username: username})
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({selectedPool: parsedData.data})
@@ -147,7 +145,7 @@ class App extends Component {
       .send({amount: bid.amount})
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           socket.emit('selectedPool', parsedData.data)
@@ -166,7 +164,7 @@ class App extends Component {
       .send({password: e.currentTarget.parentNode.childNodes[2].value})
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
@@ -186,7 +184,7 @@ class App extends Component {
       .send({password: e.currentTarget.previousSibling.value})
       .end((err, res) => {
         if (err) {
-          console.log(err)
+          // console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({

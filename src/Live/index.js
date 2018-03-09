@@ -60,7 +60,6 @@ export default class Live extends Component{
 		};
 		const stateLots = this.state.lotsToPick;
 		stateLots.splice(randomIndex, 1);
-		console.log(stateLots)
 		socket.emit('team up', team, stateLots)
 	}
 	submitWinningBid = () => {
@@ -69,7 +68,6 @@ export default class Live extends Component{
 			username: this.state.topBid.topBidder,
 			amount: this.state.topBid.bidAmount
 		};
-		console.log('submittedBid')
 		this.props.createBid(bid);
 	}
 	startAuction = () => {
