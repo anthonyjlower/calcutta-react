@@ -26,7 +26,8 @@ class App extends Component {
       totalBet: "",
       totalWon: '',
       numberOfPools: "",
-      pools: []
+      pools: [],
+      message: ""
     }
   }
   componentDidMount(){
@@ -70,8 +71,10 @@ class App extends Component {
   }
   viewUser = (e) => {
     // Get all of the selected User info in a pool
+    console.log(e.currentTarget.id)
+    console.log(this.state.selectedPool.pool.id)
     request
-      .get('http://localhost:9292/users/' + e.currentTarget.id  + '/pool/' +this.state.selectedPool.pool.id)
+      .get('http://localhost:9292/users/' + e.currentTarget.id  + '/pool/' + this.state.selectedPool.pool.id)
       .end((err, res) => {
         if (err) {
           console.log(err)
@@ -160,14 +163,37 @@ class App extends Component {
       .post('http://localhost:9292/users/login')
       .type('form')
       .send({username: this.state.username})
+      .send({password: e.currentTarget.parentNode.childNodes[2].value})
       .end((err, res) => {
         if (err) {
           console.log(err)
         } else {
           const parsedData = JSON.parse(res.text)
           this.setState({
-            userId: parsedData.data.user.id,
-            loggedIn: true
+            userId: parsedData.data.userId,
+            loggedIn: parsedData.data.loggedIn,
+            message: parsedData.data.message
+          })
+        }
+      })
+  }
+  createAccount = (e) => {
+    e.preventDefault();
+    request
+      .post('http://localhost:9292/users/')
+      .type('form')
+      .send({username: e.currentTarget.previousSibling.previousSibling.value})
+      .send({password: e.currentTarget.previousSibling.value})
+      .end((err, res) => {
+        if (err) {
+          console.log(err)
+        } else {
+          const parsedData = JSON.parse(res.text)
+          this.setState({
+            userId: parsedData.data.userId,
+            username: parsedData.data.userName,
+            loggedIn: parsedData.data.loggedIn,
+            message: parsedData.data.message
           })
         }
       })
@@ -184,7 +210,7 @@ class App extends Component {
           viewPool={this.viewPool} createPool={this.createPool} createInvite={this.createInvite}
           createBid={this.createBid} clearPool={this.clearPool} getUserInfo={this.getUserInfo} viewUser={this.viewUser}
           />
-          : <Login submitLogin={this.submitLogin} handleLogin={this.handleLogin}/>}
+          : <Login createAccount={this.createAccount} submitLogin={this.submitLogin} handleLogin={this.handleLogin} message={this.state.message}/>}
           
       </div>
     );

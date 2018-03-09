@@ -9,10 +9,12 @@ export default class Login extends Component {
 		return(
 			<div id='login-body'>
 			<div id='buffer'></div>
+			<h3>{this.props.message}</h3>
 				<div className='form'>
 					<form>
 						<h2>Log In to Your Account</h2>
 						<input type='text' placeholder='username' onChange={this.props.handleLogin}/>
+						<input type='password' placeholder='password' />
 						<button onClick={this.props.submitLogin}>Login</button>
 					</form>
 				</div>
@@ -22,7 +24,8 @@ export default class Login extends Component {
 					<form>
 						<h2> Create a New Account </h2>
 						<input type='text' placeholder='username' />
-						<button>Register</button>
+						<input type='password' placeholder='password' />
+						<button onClick={this.props.createAccount}>Register</button>
 					</form>
 				</div>
 			</div>

@@ -2,6 +2,11 @@
 	background-color: rgb(29, 53, 87);
 	height: 100vh;
 }
+#login-body h3{
+	margin: 0 auto;
+	text-align: center;
+	color: rgb(230, 57, 70);
+}
 #buffer{
 	height: 10vh;
 }
