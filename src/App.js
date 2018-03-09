@@ -39,7 +39,7 @@ class App extends Component {
   getUserInfo = () => {
     // Get all of the data for the logged in user
     request
-      .get('http://localhost:9292/users/' + this.state.userId)
+      .get('https://calcutta-backend.herokuapp.com/users/' + this.state.userId)
       .withCredentials()
       .end((err, res) => {
         if (err) {
@@ -58,7 +58,7 @@ class App extends Component {
   viewPool = (id) =>{
     // View all of the info for the selected pool
     request
-      .get('http://localhost:9292/pools/' + id)
+      .get('https://calcutta-backend.herokuapp.com/pools/' + id)
       .end((err, res) => {
         if (err) {
           // console.log(err)
@@ -72,7 +72,7 @@ class App extends Component {
   viewUser = (e) => {
     // Get all of the selected User info in a pool
     request
-      .get('http://localhost:9292/users/' + e.currentTarget.id  + '/pool/' + this.state.selectedPool.pool.id)
+      .get('https://calcutta-backend.herokuapp.com/' + e.currentTarget.id  + '/pool/' + this.state.selectedPool.pool.id)
       .end((err, res) => {
         if (err) {
           // console.log(err)
@@ -99,7 +99,7 @@ class App extends Component {
   createPool = (poolName) => {
     // Create a new pool
     request
-      .post('http://localhost:9292/pools')
+      .post('https://calcutta-backend.herokuapp.com/pools')
       .type('form')
       .send({name: poolName})
       .send({user_id: this.state.userId})
@@ -121,7 +121,7 @@ class App extends Component {
   createInvite = (username) => {
     // Invite Users to a selected Pool
     request
-      .post('http://localhost:9292/pools/invite')
+      .post('https://calcutta-backend.herokuapp.com/pools/invite')
       .type('form')
       .send({pool_id: this.state.selectedPool.pool.id})
       .send({username: username})
@@ -137,7 +137,7 @@ class App extends Component {
   createBid = (bid) => {
     // Finalize a bid for a team
     request
-      .post('http://localhost:9292/pools/bid')
+      .post('https://calcutta-backend.herokuapp.com/pools/bid')
       .type('form')
       .send({pool_id: this.state.selectedPool.pool.id})
       .send({team_id: bid.team_id})
@@ -158,7 +158,7 @@ class App extends Component {
   submitLogin = (e) => {
     e.preventDefault();
     request
-      .post('http://localhost:9292/users/login')
+      .post('https://calcutta-backend.herokuapp.com/users/login')
       .type('form')
       .send({username: this.state.username})
       .send({password: e.currentTarget.parentNode.childNodes[2].value})
@@ -178,7 +178,7 @@ class App extends Component {
   createAccount = (e) => {
     e.preventDefault();
     request
-      .post('http://localhost:9292/users/')
+      .post('https://calcutta-backend.herokuapp.com/users/')
       .type('form')
       .send({username: e.currentTarget.previousSibling.previousSibling.value})
       .send({password: e.currentTarget.previousSibling.value})
