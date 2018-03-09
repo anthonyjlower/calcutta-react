@@ -10,6 +10,8 @@ The bidding and auction is managed using Socket.io that is run on Express.js ser
 ## Installation
 After cloning the repo simply run `npm install` to and then `npm start` and you should be set
 
+You will need to change the URL for the socket connection on the index.js file, and for the API requests in App.js
+
 ## Future Additions
 * Currently the app only supports Men's College Basketball Tournament, in the future we would like to be able to handle other tournaments as well
 * More data analytics showing trends in auctions
