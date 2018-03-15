@@ -9,6 +9,10 @@ export default class Login extends Component {
 		return(
 			<div id='login-body'>
 			<div id='buffer'></div>
+			<div id='title'>
+				<h1>CalcuttaCoin</h1>
+				<a href="https://calcutta-backend.herokuapp.com/">What is this?</a>
+			</div>
 			<h3>{this.props.message}</h3>
 				<div className='form'>
 					<form>
